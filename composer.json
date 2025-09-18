@@ -1,8 +1,8 @@
 {
-  "name": "Gohany/Retry",
+  "name": "gohany/retry",
   "description": "Common interface for retrying operations",
   "keywords": ["retry", "Retry"],
-  "homepage": "https://github.com/php-fig/log",
+  "homepage": "https://github.com/Gohany/Retry",
   "license": "MIT",
   "authors": [
     {
