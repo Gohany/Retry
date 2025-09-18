@@ -68,7 +68,7 @@ Provide a test `SleeperInterface` that records sleep calls instead of actually s
 A production-ready reference implementation lives here:
 
 - Repo: https://github.com/Gohany/Rtry
-- Packagist: <vendor/retry-impl> (MIT)
+- Packagist: gohany/rtry (MIT)
 
 This implementation is provided to demonstrate how the interfaces and the `rtry:` policy
 can be used in practice. It is **non-normative** and does not change the meaning of this spec.
