@@ -4,6 +4,5 @@ namespace Gohany\Retry;
 
 interface RetryPolicyFactoryInterface
 {
-    /** @throws \InvalidArgumentException on malformed spec. */
-    public function fromSpec(string $spec): RetryPolicyInterface;
+    public function fromSpec(string $spec, ?RetryDeciderInterface $decider = null): RetryPolicyInterface;
 }

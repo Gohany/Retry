@@ -12,19 +12,12 @@ interface RetryPolicyInterface
 
     public function startAfterMs(): int;
 
-    public function hedgeEnabled(): bool;
+    public function hedge(): ?HedgeSpecInterface;
+    public function followHeaders(): bool;
 
-    public function hedgeExtra(): int;
-
-    public function hedgeDelayMs(): int;
-
-    /**
-     * Compute the nominal delay (before jitter) for the given attempt number.
-     * For attempt #1, callers should use startAfterMs() instead.
-     */
     public function nominalDelayMs(int $attemptNumber): int;
 
-    public function jitter(): JitterSpecInterface;
+    public function jitter(): ?JitterSpecInterface;
 
     public function decider(): RetryDeciderInterface;
 
