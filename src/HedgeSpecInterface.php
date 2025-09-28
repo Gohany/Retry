@@ -4,8 +4,8 @@ namespace Gohany\Retry;
 
 interface HedgeSpecInterface
 {
-    public const CANCEL_ON_FIRST_SUCCESS     = 'FIRST_SUCCESS';     // cancel others when first success occurs
-    public const CANCEL_ON_FIRST_COMPLETION  = 'FIRST_COMPLETION';  // cancel others when any
+    public const CANCEL_ON_FIRST_SUCCESS     = 0;
+    public const CANCEL_ON_FIRST_COMPLETION  = 1;
 
     /**
      * Policy determining when other in-flight lanes should be cancelled.
