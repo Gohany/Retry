@@ -17,5 +17,5 @@ interface RetryerInterface
      * @return TReturn
      * @throws \Throwable Last error if all attempts (and hedges) fail.
      */
-    public function try(callable $operation, RetryPolicyInterface $policy, array $context = []);
+    public function try(callable $operation, RetryPolicyInterface $policy, array $context = []): AttemptOutcomeInterface;
 }
