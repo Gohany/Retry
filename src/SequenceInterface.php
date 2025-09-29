@@ -2,12 +2,12 @@
 
 namespace Gohany\Retry;
 
-interface SequenceSpecInterface
+interface SequenceInterface
 {
     /**
      * @return list<int> The configured delay sequence in milliseconds.
      */
-    public function getDelaysMs(): array;
+    public function delaysMs(): array;
 
     /**
      * Whether the last delay should be repeated indefinitely when the sequence ends.

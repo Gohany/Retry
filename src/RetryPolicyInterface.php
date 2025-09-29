@@ -21,11 +21,11 @@ interface RetryPolicyInterface
 
     public function nextDelayMs(int $attemptNumber): int;
 
-    public function sequence(): ?SequenceSpecInterface;
+    public function sequence(): ?SequenceInterface;
 
-    public function hedge(): ?HedgeSpecInterface;
+    public function hedge(): ?HedgeInterface;
 
-    public function jitter(): ?JitterSpecInterface;
+    public function jitter(): ?JitterInterface;
 
     public function decider(): RetryDeciderInterface;
 

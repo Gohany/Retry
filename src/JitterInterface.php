@@ -2,7 +2,7 @@
 
 namespace Gohany\Retry;
 
-interface JitterSpecInterface
+interface JitterInterface
 {
     /** 'full', 'pm', or 'none'. */
     public function mode(): string;
