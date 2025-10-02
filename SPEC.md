@@ -79,19 +79,19 @@ The **RTRY** string allows policies to be stored in a single DB column, config v
 A semicolon‑delimited `key=value` list with `rtry:` prefix:
 
 ```
-rtry:a=<int>;d=<duration>;mode=<exp|lin|seq>;[b=<float>|inc=<duration>|seq=(<dur>[,<dur>...][,*])];
-cap=<duration>;j=<percent|duration>;jmode=<full|pm|none>;t=<duration>;dl=<duration>;
+rtry:a=<int>;d=<duration>;mode=<exp|lin|seq>;[b=<float>|d=<delay>|seq=(<dur>[,<dur>...][,*])];
+cap=<duration>;j=<percent|duration>;jmode=<full|pm|none>;t=<duration>;dl=<deadline>;
 on=<codes>;sa=<duration>;hedge=<n>@<delay>
 ```
 
 - **a** attempts (≥1).
-- **d** base delay (duration units: `ms|s|m|h`).
+- **d** base delay (duration units: `ms|s|m|h`). default: ms
 - **mode** = `exp` (default) | `lin` | `seq`.
 - **b** exponential factor (≥1).
-- **inc** linear increment (duration).
-- **seq=(...)` explicit sequence; optional trailing `*` repeats last (hint).
+- **d** linear delay (duration).
+- **seq=...` explicit sequence; optional trailing `*` repeats last (hint).
 - **cap** max per‑attempt delay (hint to implementations).
-- **j/jmode** jitter configuration (`full`, `pm`, `none`).
+- **j** jitter configuration (`duration@mode`: `full`, `pm`, `none` - `200@full`, `2.5s@pm`).
 - **t** per‑attempt timeout (advisory).
 - **dl** total deadline budget.
 - **on** adapter‑defined retryable tokens (e.g., `5xx,429,ETIMEDOUT`).
@@ -99,11 +99,11 @@ on=<codes>;sa=<duration>;hedge=<n>@<delay>
 - **hedge=n@delay** enables hedging hints.
 
 **Canonical key order** for storage:  
-`a; d; mode; [b|inc|seq]; cap; j; jmode; t; dl; on; sa; hedge`
+`a; d; mode; [b|inc|seq]; cap; j; t; dl; on; sa; h`
 
 ### 6.1 Durations
 
-Regex: `^([0-9]+(?:\.[0-9]+)?)(ms|s|m|h)$`
+Regex: `~^([0-9]+(?:\.[0-9]+)?)(ms|s|m|h)?$~i`
 
 ### 6.2 Jitter
 
