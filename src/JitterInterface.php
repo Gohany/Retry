@@ -2,19 +2,31 @@
 
 namespace Gohany\Retry;
 
+use Random\Randomizer;
+
+/**
+ * How a nominal delay is randomised (rtry key `j`). See SPEC §6.2 for the bounds.
+ */
 interface JitterInterface
 {
-    /** 'full', 'pm', or 'none'. */
+    public const MODE_FULL = 'full';
+    public const MODE_PM = 'pm';
+    public const MODE_NONE = 'none';
+
+    /** One of MODE_FULL, MODE_PM, MODE_NONE. */
     public function mode(): string;
 
-    /** Percent as 0–1 float (for plus/minus), or null. */
+    /** Window as a percent of the nominal delay, 0-100, or null when the window is absolute. */
     public function percent(): ?float;
 
-    /** Absolute jitter window in ms (for plus/minus), or null. */
+    /** Absolute window in ms, or null when the window is a percent. */
     public function windowMs(): ?int;
 
     /**
-     * Apply jitter to a nominal delay (milliseconds) and return the randomized delay (>= 0).
+     * Return the randomised delay (>= 0) for a nominal delay.
+     *
+     * Draws exactly one value with $random->getInt($low, $high) when $low < $high and none
+     * otherwise, so a seeded Randomizer gives the same schedule in every implementation.
      */
-    public function apply(int $nominalDelayMs, ?int $seed = null): int;
+    public function apply(int $nominalDelayMs, Randomizer $random): int;
 }
