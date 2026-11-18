@@ -1,27 +1,21 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Gohany\Retry;
 
+/**
+ * An explicit delay sequence (rtry key `seq`). Immutable: delays are looked up by position.
+ */
 interface SequenceInterface
 {
-    /**
-     * @return list<int> The configured delay sequence in milliseconds.
-     */
+    /** @return list<int> The configured delays in ms, the first one is the delay before attempt #2. */
     public function delaysMs(): array;
 
-    /**
-     * Whether the last delay should be repeated indefinitely when the sequence ends.
-     */
+    /** Whether the last delay repeats once the sequence runs out (`*`). */
     public function isRepeatLastDelay(): bool;
 
     /**
-     * Resets the internal iteration state to the beginning of the sequence.
+     * Delay in ms before attempt $attemptNumber (>= 2): delaysMs()[$attemptNumber - 2], the last
+     * delay past the end when it repeats, otherwise null.
      */
-    public function reset(): void;
-
-    /**
-     * Returns the next delay in milliseconds, or null if there is none.
-     */
-    public function nextDelayMs(): ?int;
-
+    public function delayMsAt(int $attemptNumber): ?int;
 }
