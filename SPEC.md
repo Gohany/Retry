@@ -252,6 +252,10 @@ Extends `\RuntimeException`.
 
 - `key(): string` — the breaker key that refused.
 
+The message is the same for every key and is never built from it: keys can carry tenant or customer ids, and callers log
+messages. The exact message text is not part of this contract; match on the type and read
+`key()`.
+
 ## 6. RTRY string (normative)
 
 A semicolon-separated `key=value` list after the `rtry:` prefix. Keys are case-insensitive,
@@ -360,6 +364,8 @@ implements its `create…()` methods.
 - Use a budget and a breaker per downstream service so retries cannot multiply an outage.
 - Retries can magnify side effects: protect webhooks and money moves with idempotency keys.
 - Never put credentials or card data in tags, context or failure messages.
+- Breaker and budget keys can carry tenant or customer ids: keep them out of exception and log
+  messages and put them in log context.
 
 ## 11. Versioning
 

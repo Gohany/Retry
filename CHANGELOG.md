@@ -1,6 +1,24 @@
 # Changelog
 
-## 2.0.0 — unreleased
+## 2.0.1 — 2026-11-19
+
+### Security
+
+- `CircuitOpenException`'s message is now the constant `Circuit open`; 2.0.0 rendered
+  `Circuit open for <key>`. Breaker keys can carry tenant or customer ids
+  (`payments.stripe.<tenantId>`), and anything that logs the exception or forwards it to an
+  error tracker put that id into the rendered message. The key is still available, unchanged,
+  through `key()`; put it in log context. SPEC §5.21 now says the message never contains the
+  key and that its exact text is not part of the contract, so match on the type, not the
+  message.
+- A classifier that reads exception messages no longer sees the key. On 2.0.0 a refused circuit
+  on a key such as `db.deadlock` or `upstream connection refused` was tagged by its own name
+  (`DEADLOCK`, `ECONNREFUSED`), so an outer policy retrying on that tag would retry the refusal;
+  it is now untagged.
+- SPEC §10 now says breaker and budget keys can carry tenant or customer ids and stay out of
+  exception and log messages.
+
+## 2.0.0 — 2026-11-17
 
 Version 2 makes SPEC.md, README.md and the code agree, makes policies immutable, and adds a
 scheduling call, retry budgets and circuit breakers. `tests/SpecConformanceTest.php` now fails
