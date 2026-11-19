@@ -6,7 +6,7 @@ namespace Gohany\Retry;
  * Thrown (or reported as lastError()) when a circuit breaker refused the first attempt, so
  * there is no operation error to rethrow.
  *
- * The message is the same for every key and never contains it: breaker keys can carry tenant
+ * The message is the same for every key and is never built from it: breaker keys can carry tenant
  * or customer ids, and callers log exception messages. Read the key from key() and put it in
  * log context.
  */
