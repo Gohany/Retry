@@ -252,6 +252,10 @@ Extends `\RuntimeException`.
 
 - `key(): string` — the breaker key that refused.
 
+The message never contains the key: keys can carry tenant or customer ids, and callers log
+messages. The exact message text is not part of this contract; match on the type and read
+`key()`.
+
 ## 6. RTRY string (normative)
 
 A semicolon-separated `key=value` list after the `rtry:` prefix. Keys are case-insensitive,

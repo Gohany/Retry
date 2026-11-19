@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.0.1 — unreleased
+
+### Changed
+
+- `CircuitOpenException`'s message is now the constant `Circuit open`; 2.0.0 rendered
+  `Circuit open for <key>`. Breaker keys can carry tenant or customer ids
+  (`payments.stripe.<tenantId>`), and anything that logs the exception or forwards it to an
+  error tracker put that id into the rendered message. The key is still available, unchanged,
+  through `key()`; put it in log context. SPEC §5.21 now says the message never contains the
+  key and that its exact text is not part of the contract, so match on the type, not the
+  message.
+
 ## 2.0.0 — unreleased
 
 Version 2 makes SPEC.md, README.md and the code agree, makes policies immutable, and adds a
